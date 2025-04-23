@@ -51,9 +51,14 @@ import androidx.navigation.NavController
 import com.igdtuw.ontrack.AuthState
 import com.igdtuw.ontrack.AuthViewModel
 import com.igdtuw.ontrack.R
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 
 @Composable
-fun Signup(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel){
+fun Signup(
+    onGoogleSignInClick: () -> Unit,
+    modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel){
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -63,6 +68,7 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
 
@@ -296,7 +302,10 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
 
                 //google sign in button
                 Button(
-                    onClick = { /* TODO: Add Google Sign-In action */ },
+                    onClick = {
+                        if (authState.value !is AuthState.Loading) {
+                        onGoogleSignInClick()
+                    }},
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 44.dp),

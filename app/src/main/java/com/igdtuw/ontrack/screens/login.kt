@@ -82,13 +82,13 @@ fun Login(modifier: Modifier = Modifier, navController: NavController, authViewM
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = "Login",
                     style = MaterialTheme.typography.headlineLarge.copy(fontSize = 22.sp),
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Please sign up to a new account",
+                    text = "Please sign in to your existing account",
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                     color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
                 )
