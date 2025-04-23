@@ -234,41 +234,7 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
                     textStyle = LocalTextStyle.current.copy(fontSize = 14.sp)
                 )
 
-                //Confirm password
-                Text(
-                    text = "CONFIRM PASSWORD",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.primary
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 4.dp)
-                )
-                TextField(
-                    value = confirmPassword,
-                    onValueChange = { confirmPassword = it },
-                    placeholder = {
-                        Text(
-                            text = "Re-enter your password",
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
-                        )
-                    },
-                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = textFieldBg,
-                        unfocusedContainerColor = textFieldBg,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent
-                    ),
-                    singleLine = true,
-                    shape = RoundedCornerShape(8.dp)
-
                 //signup button
-                )
                 Button(
                     onClick = {navController.navigate("Home")},
                     modifier = Modifier
