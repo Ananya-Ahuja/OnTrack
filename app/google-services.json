@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "974361071251",
+    "project_id": "ontrack-v1",
+    "storage_bucket": "ontrack-v1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974361071251:android:3f04d8df19ce244100c766",
+        "android_client_info": {
+          "package_name": "com.igdtuw.ontrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974361071251-9j886ienmkrnt017dar93q1tv8i7gnbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.igdtuw.ontrack",
+            "certificate_hash": "8299e0849533094097e8c9bc4d643a1ef28ed5f9"
+          }
+        },
+        {
+          "client_id": "974361071251-7oe9ph98bjt39u91mns795gi28thmq3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2pJStVp2tzkwj-ekJzuuRvCedyVA3JdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974361071251-7oe9ph98bjt39u91mns795gi28thmq3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
