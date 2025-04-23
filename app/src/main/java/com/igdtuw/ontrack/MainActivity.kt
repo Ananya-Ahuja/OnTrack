@@ -15,11 +15,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val authViewModel : AuthViewModel by viewModels()
+        val authViewModel: AuthViewModel by viewModels()
         setContent {
             UiTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Navigation(modifier = Modifier.padding(innerPadding), authViewModel = authViewModel)
+                    Navigation(
+                        modifier = Modifier.padding(innerPadding),
+                        authViewModel = authViewModel
+                    )
                 }
             }
         }
