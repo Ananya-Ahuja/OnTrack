@@ -51,14 +51,13 @@ import androidx.navigation.NavController
 import com.igdtuw.ontrack.AuthState
 import com.igdtuw.ontrack.AuthViewModel
 import com.igdtuw.ontrack.R
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
 
 @Composable
 fun Signup(
-    onGoogleSignInClick: () -> Unit,
-    modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel){
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthViewModel)
+{
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -75,7 +74,9 @@ fun Signup(
     LaunchedEffect(authState.value) {
         when (authState.value) {
             is AuthState.Authenticated -> {
-                navController.navigate("Home")
+                navController.navigate("Home") {
+                    popUpTo("signup") { inclusive = true }
+                }
             }
             is AuthState.Error -> {
                 Toast.makeText(context, (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
@@ -260,7 +261,7 @@ fun Signup(
 
                 //signup button
                 Button(
-                    onClick = {navController.navigate("Home")},
+                    onClick = {authViewModel.signup(email, password) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 44.dp),
@@ -278,52 +279,6 @@ fun Signup(
                 TextButton(onClick = {navController.navigate("login")}) {
                     Text(
                         text = "Already have an account? Login",
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    )
-                }
-
-                //divider
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray.copy(alpha = 0.3f))
-                    Text(
-                        text = "Or",
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray.copy(alpha = 0.3f))
-                }
-
-                //google sign in button
-                Button(
-                    onClick = {
-                        if (authState.value !is AuthState.Loading) {
-                        onGoogleSignInClick()
-                    }},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 44.dp),
-                    enabled = true,
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFF7F9FB),
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_google_logo),
-                        contentDescription = "Google Logo",
-                        tint = Color.Unspecified,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Continue with Google",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.primary
                         )

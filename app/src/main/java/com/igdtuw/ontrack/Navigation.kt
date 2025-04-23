@@ -12,15 +12,32 @@ import com.igdtuw.ontrack.screens.Home
 @Composable
 fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login", builder = {
-        composable("login"){
-            Login(modifier, navController, authViewModel )
+
+    NavHost(
+        navController = navController,
+        startDestination = "login"
+    ) {
+        composable("login") {
+            Login(
+                modifier = modifier,
+                navController = navController,
+                authViewModel = authViewModel
+            )
         }
-        composable("signup"){
-            Signup(modifier, navController, authViewModel )
+
+        composable("signup") {
+            Signup(modifier = modifier,
+                navController = navController,
+                authViewModel = authViewModel
+            )
         }
-        composable("home"){
-            Home(modifier, navController, authViewModel )
+
+        composable("home") {
+            Home(
+                modifier = modifier,
+                navController = navController,
+                authViewModel = authViewModel
+            )
         }
-    })
+    }
 }

@@ -1,5 +1,6 @@
 package com.igdtuw.ontrack.screens
 
+import android.widget.Toast
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.igdtuw.ontrack.AuthViewModel
@@ -31,7 +32,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,11 +43,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.igdtuw.ontrack.AuthState
 import com.igdtuw.ontrack.R
 
 @Composable
@@ -57,6 +62,23 @@ fun Login(modifier: Modifier = Modifier, navController: NavController, authViewM
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
+    val authState = authViewModel.authState.observeAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Authenticated -> {
+                navController.navigate("Home") {
+                    popUpTo("signup") { inclusive = true }
+                }
+            }
+            is AuthState.Error -> {
+                Toast.makeText(context, (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+            }
+            else -> Unit
+        }
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         // Background Image
         Image(
@@ -197,9 +219,9 @@ fun Login(modifier: Modifier = Modifier, navController: NavController, authViewM
                     textStyle = LocalTextStyle.current.copy(fontSize = 14.sp)
                 )
 
-                    //login button
+                //login button
                 Button(
-                    onClick = {navController.navigate("Home")},
+                    onClick = { authViewModel.login(email, password) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 44.dp),
@@ -210,56 +232,16 @@ fun Login(modifier: Modifier = Modifier, navController: NavController, authViewM
                         contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
-                    Text("LOGIN", style = MaterialTheme.typography.labelLarge.copy(fontSize = 16.sp))
+                    Text(
+                        "LOGIN",
+                        style = MaterialTheme.typography.labelLarge.copy(fontSize = 16.sp)
+                    )
                 }
 
                 // Go to Signup
-                TextButton(onClick = {navController.navigate("Signup")}) {
+                TextButton(onClick = { navController.navigate("Signup") }) {
                     Text(
                         text = "Don't have an account? Signup",
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    )
-                }
-
-                //divider
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray.copy(alpha = 0.3f))
-                    Text(
-                        text = "Or",
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray.copy(alpha = 0.3f))
-                }
-
-                //google sign in button
-                Button(
-                    onClick = { /* TODO: Add Google Sign-In action */ },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 44.dp),
-                    enabled = true,
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFF7F9FB),
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_google_logo),
-                        contentDescription = "Google Logo",
-                        tint = Color.Unspecified,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Continue with Google",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.primary
                         )

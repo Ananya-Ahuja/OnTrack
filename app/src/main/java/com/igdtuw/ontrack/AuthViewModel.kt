@@ -1,10 +1,12 @@
 package com.igdtuw.ontrack
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
@@ -62,19 +64,6 @@ class AuthViewModel: ViewModel() {
     fun signout() {
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
-    }
-
-    // Sign in with Google (using the ID token)
-    fun signInWithGoogle(idToken: String) {
-        viewModelScope.launch {
-            try {
-                val credential = GoogleAuthProvider.getCredential(idToken, null)
-                auth.signInWithCredential(credential).await()
-                _authState.value = AuthState.Authenticated // Assuming success
-            } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Authentication failed")
-            }
-        }
     }
 }
 
