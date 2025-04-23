@@ -1,58 +1,84 @@
 package com.igdtuw.ontrack.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+// Unified Color Scheme
+private val LightColors = lightColorScheme(
+    primary = Color(0xFFA152E6),       // Primary purple
+    onPrimary = Color.White,           // White text on purple
+    secondary = Color(0xFF6C68F8),     // Secondary color
+    surface = Color.White,             // Background for cards/sheets
+    background = Color(0xFFF7F9FB),    // Page background
+    onBackground = Color(0xFF2D0A37)   // Primary text color
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+private val DarkColors = darkColorScheme(
+    primary = Color(0xFFA152E6),
     onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = Color(0xFF6C68F8),
+    surface = Color(0xFF181828),
+    background = Color(0xFF1A1A1A),
+    onBackground = Color.White
+)
+
+// Consolidated Typography
+val AppTypography = Typography(
+    displayLarge = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp,
+        color = Color(0xFF2D0A37)
+    ),
+    bodyLarge = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    labelLarge = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        color = Color.White
+    )
+)
+
+// Onboarding Title and Subtitle Styles
+val TitleStyle = TextStyle(
+    fontSize = 28.sp,
+    fontWeight = FontWeight.Bold,
+    color = Color(0xFF2D0A37),
+    textAlign = TextAlign.Center
+)
+
+val SubtitleStyle = TextStyle(
+    fontSize = 18.sp,
+    fontWeight = FontWeight.Normal,
+    color = Color(0xFF4A4458),
+    textAlign = TextAlign.Center
 )
 
 @Composable
-fun OnTrackTheme(
+fun UiTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Force-disable dynamic colors
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        // Always use our custom color schemes
+        darkTheme -> DarkColors
+        else -> LightColors
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }

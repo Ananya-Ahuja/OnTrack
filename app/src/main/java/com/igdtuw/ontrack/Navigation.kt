@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.igdtuw.ontrack.screens.Login
 import com.igdtuw.ontrack.screens.Signup
-import com.igdtuw.ontrack.screens.home
+import com.igdtuw.ontrack.screens.Home
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
@@ -20,7 +20,7 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
             Signup(modifier, navController, authViewModel )
         }
         composable("home"){
-            home(modifier, navController, authViewModel )
+            Home(modifier, navController, authViewModel )
         }
     })
 }

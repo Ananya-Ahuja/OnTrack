@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.igdtuw.ontrack.ui.theme.OnTrackTheme
+import com.igdtuw.ontrack.ui.theme.UiTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +17,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val authViewModel : AuthViewModel by viewModels()
         setContent {
-            OnTrackTheme {
+            UiTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Navigation(modifier = Modifier.padding(innerPadding), authViewModel = AuthViewModel())
+                    Navigation(modifier = Modifier.padding(innerPadding), authViewModel = authViewModel)
                 }
             }
         }

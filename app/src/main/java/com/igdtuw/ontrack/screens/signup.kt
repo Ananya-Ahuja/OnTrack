@@ -270,7 +270,7 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
                 //signup button
                 )
                 Button(
-                    onClick = { /* TODO: Add action */ },
+                    onClick = {navController.navigate("Home")},
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 44.dp),
@@ -285,7 +285,7 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
                 }
 
                 // Go to Login
-                TextButton(onClick = { /* TODO: Add action */ }) {
+                TextButton(onClick = {navController.navigate("login")}) {
                     Text(
                         text = "Already have an account? Login",
                         style = MaterialTheme.typography.bodyMedium.copy(
