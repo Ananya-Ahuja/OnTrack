@@ -285,7 +285,7 @@ fun Signup(modifier: Modifier = Modifier, navController: NavController, authView
                 }
 
                 // Go to Login
-                TextButton(onClick =) {
+                TextButton(onClick = { /* TODO: Add action */ }) {
                     Text(
                         text = "Already have an account? Login",
                         style = MaterialTheme.typography.bodyMedium.copy(
