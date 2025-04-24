@@ -2,12 +2,13 @@ package com.igdtuw.ontrack
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.igdtuw.ontrack.screens.Login
-import com.igdtuw.ontrack.screens.Signup
-import com.igdtuw.ontrack.screens.Home
+import com.igdtuw.ontrack.screens.*
+import com.igdtuw.timetable.UploadTimetableScreen
+import com.igdtuw.timetable.UploadTimetableViewModel
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
@@ -26,17 +27,35 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
         }
 
         composable("signup") {
-            Signup(modifier = modifier,
+            Signup(
+                modifier = modifier,
                 navController = navController,
                 authViewModel = authViewModel
             )
         }
 
         composable("home") {
-            Home(
+            DashboardScreen(
                 modifier = modifier,
                 navController = navController,
                 authViewModel = authViewModel
+            )
+        }
+
+        // Add Calendar screen route
+        composable("calendar") {
+            val viewModel: CalendarScreenLogic = hiltViewModel()
+            CalendarScreen(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+
+        composable("upload_timetable") {
+            val viewModel: UploadTimetableViewModel = hiltViewModel()
+            UploadTimetableScreen(
+                navController = navController,
+                viewModel = viewModel
             )
         }
     }
