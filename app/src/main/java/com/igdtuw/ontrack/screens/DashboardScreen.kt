@@ -25,6 +25,7 @@ fun DashboardScreen(
             when (route) {
                 "To-do List" -> navController.navigate("todo")
                 "Calendar" -> navController.navigate("calendar")
+                "CGPA Calculator" -> navController.navigate("cgpa_calculator")
                 // Add other cases for different drawer items""
             }
         },

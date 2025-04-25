@@ -71,5 +71,14 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
                 authViewModel = authViewModel
             )
         }
+
+        composable("cgpa_calculator") {
+            val viewModel: CgpaViewModel = hiltViewModel()
+            CgpaScreen(
+                navController = navController,
+                viewModel = viewModel,
+                authViewModel = authViewModel
+            )
+        }
     }
 }
