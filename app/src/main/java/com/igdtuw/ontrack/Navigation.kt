@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.igdtuw.ontrack.screens.*
-import com.igdtuw.timetable.UploadTimetableScreen
+import com.igdtuw.ontrack.screens.UploadTimetableScreen
 import com.igdtuw.timetable.UploadTimetableViewModel
 
 @Composable
@@ -57,6 +57,10 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
                 navController = navController,
                 viewModel = viewModel
             )
+        }
+
+        composable("attendance") {
+            AttendanceScreen(navController = navController)
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.igdtuw.ontrack.screens
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -15,12 +17,36 @@ fun DashboardScreen(
     modifier: Modifier = Modifier,
     authViewModel: AuthViewModel
 ) {
-    Column(modifier = modifier.padding(16.dp)) {
-        Button(
-            onClick = { navController.navigate("calendar") }, // Correct route
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Go to Calendar")
+    MainScaffold(
+        screenTitle = "Home",
+        canNavigateBack = false,
+        onNavigateBack = { navController.popBackStack() },
+        onDrawerItemClick = { route ->
+            when (route) {
+                "Calendar" -> navController.navigate("calendar")
+                // Add other cases for different drawer items
+            }
+        },
+        onLogoutClick = {
+            // Handle logout logic
+            authViewModel.signout()
+            navController.navigate("login") {
+                popUpTo(0) { inclusive = true }
+            }
+        },
+        authViewModel = authViewModel
+    ) { paddingValues ->  // Padding from Scaffold
+        Column(modifier = modifier
+            .padding(paddingValues)
+            .padding(16.dp)) {
+            Button(
+                onClick = { navController.navigate("attendance") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("View Attendance")
+            }
         }
     }
 }

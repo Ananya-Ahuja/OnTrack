@@ -123,7 +123,7 @@ class CalendarScreenLogic @Inject constructor(
 
 data class CalendarState(
     val selectedDate: LocalDate = LocalDate.now(),
-    val visibleMonth: LocalDate = LocalDate.now().withDayOfMonth(1),
+    val visibleMonth: LocalDate = LocalDate.now(),
     val currentTasks: MutableList<String> = mutableListOf(),
     val events: Map<LocalDate, MutableList<String>> = emptyMap(),
     val timetable: Map<DayOfWeek, List<String>> = emptyMap(),

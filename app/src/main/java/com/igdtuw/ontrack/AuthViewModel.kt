@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class AuthViewModel: ViewModel() {
-    private val _userName = MutableStateFlow("John Anderson")
+    private val _userName = MutableStateFlow("Ananya")
     val userName: StateFlow<String> = _userName
 
     // Call this to update the username after login
