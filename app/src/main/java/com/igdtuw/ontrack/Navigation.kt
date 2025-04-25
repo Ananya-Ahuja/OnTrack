@@ -80,5 +80,14 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
                 authViewModel = authViewModel
             )
         }
+
+        composable("project_planner") {
+            val viewModel: ProjectViewModel = hiltViewModel()
+            ProjectPlannerScreen(
+                navController = navController,
+                viewModel = viewModel,
+                authViewModel = authViewModel
+            )
+        }
     }
 }

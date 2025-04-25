@@ -11,18 +11,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-// Define migration as a top-level object
+// Migration moved outside the object
 private val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("""
-            CREATE TABLE IF NOT EXISTS courses (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                credits INTEGER NOT NULL,
-                grade TEXT NOT NULL,
-                isProjected INTEGER NOT NULL DEFAULT 0
-            )
-        """)
+        // Let Room auto-create tables from entities
     }
 }
 
@@ -38,18 +30,11 @@ object DatabaseModule {
             "app-database"
         )
             .addMigrations(MIGRATION_1_2)
+            .fallbackToDestructiveMigration() // For development only
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideTaskDao(database: AppDatabase): TaskDao {
-        return database.taskDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideCourseDao(database: AppDatabase): CourseDao {
-        return database.courseDao()
-    }
+    @Provides @Singleton fun provideTaskDao(database: AppDatabase): TaskDao = database.taskDao()
+    @Provides @Singleton fun provideProjectDao(database: AppDatabase): ProjectDao = database.projectDao()
+    @Provides @Singleton fun provideCourseDao(database: AppDatabase): CourseDao = database.courseDao()
 }

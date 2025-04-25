@@ -65,8 +65,6 @@ val drawerItems = listOf(
     DrawerItem("To-do List", R.drawable.todo),
     DrawerItem("Calendar", R.drawable.calendar),
     DrawerItem("ProjectPlanner", R.drawable.project),
-    DrawerItem("CodeVault", R.drawable.codevault),
-    DrawerItem("Resources", R.drawable.resources),
     DrawerItem("CGPA Calculator", R.drawable.cgpa)
 )
 

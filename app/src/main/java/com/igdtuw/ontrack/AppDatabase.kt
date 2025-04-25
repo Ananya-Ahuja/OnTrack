@@ -5,11 +5,15 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [Task::class, Course::class], // Include all entities
+    entities = [
+        Project::class,
+        Milestone::class,
+        Task::class, Course::class],
     version = 2 // Incremented version
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
-    abstract fun courseDao(): CourseDao // Add new DAO
+    abstract fun projectDao(): ProjectDao
+    abstract fun courseDao(): CourseDao
 }
