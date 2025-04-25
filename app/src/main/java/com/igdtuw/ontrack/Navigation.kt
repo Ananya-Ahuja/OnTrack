@@ -62,5 +62,14 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
         composable("attendance") {
             AttendanceScreen(navController = navController)
         }
+
+        composable("todo") {
+            val viewModel: TodoViewModel = hiltViewModel()
+            TodoScreen(
+                navController = navController,
+                viewModel = viewModel,
+                authViewModel = authViewModel
+            )
+        }
     }
 }

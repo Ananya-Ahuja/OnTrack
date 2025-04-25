@@ -23,8 +23,9 @@ fun DashboardScreen(
         onNavigateBack = { navController.popBackStack() },
         onDrawerItemClick = { route ->
             when (route) {
+                "To-do List" -> navController.navigate("todo")
                 "Calendar" -> navController.navigate("calendar")
-                // Add other cases for different drawer items
+                // Add other cases for different drawer items""
             }
         },
         onLogoutClick = {
